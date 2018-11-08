@@ -4,7 +4,7 @@ import boto3
 def main():
   client = boto3.client('cognito-idp')
 
-  poot_name = '[Cognitoのユーザープール名]'
+  poot_name = 'test-hoge'
 
   # ユーザープールの作成
   user_pool = _create_user_pool(client, poot_name)
@@ -15,7 +15,7 @@ def main():
   # TOTPを利用したMFAを有効にする
   _set_user_pool_mfa_config(client, user_pool)
 
-  _create_user(client, user_pool, '[username]', '[password]')
+  _create_user(client, user_pool, 'hoge', 'hogeHoge7!')
 
 
 def _create_user_pool(client, pool_name):
@@ -51,17 +51,18 @@ def _create_user_pool(client, pool_name):
     # UsernameAttributes=[
     #   'phone_number'|'email',
     # ],
-    SmsVerificationMessage=' 検証コードは {####} です。',
-    EmailVerificationMessage=' 検証コードは {####} です。',
-    EmailVerificationSubject=' 検証コード',
-    VerificationMessageTemplate={
-      'SmsMessage': ' 検証コードは {####} です。',
-      # Email利用はできなくなったみたい
-      # 'EmailMessage': ' 検証コードは {####} です。',
-      # 'EmailSubject': ' 検証コード',
-      'DefaultEmailOption': 'CONFIRM_WITH_CODE'
-    },
-    SmsAuthenticationMessage=' 認証コードは {####} です。',
+    # SmsVerificationMessage='string',
+    # EmailVerificationMessage='string',
+    # EmailVerificationSubject='string',
+    # VerificationMessageTemplate={
+    #   'SmsMessage': 'string',
+    #   'EmailMessage': 'string',
+    #   'EmailSubject': 'string',
+    #   'EmailMessageByLink': 'string',
+    #   'EmailSubjectByLink': 'string',
+    #   'DefaultEmailOption': 'CONFIRM_WITH_LINK'|'CONFIRM_WITH_CODE'
+    # },
+    # SmsAuthenticationMessage='string',
     MfaConfiguration='OFF',
     # DeviceConfiguration={
     #   'ChallengeRequiredOnNewDevice': True|False,
@@ -81,11 +82,11 @@ def _create_user_pool(client, pool_name):
     AdminCreateUserConfig={
       'AllowAdminCreateUserOnly': False,
       'UnusedAccountValidityDays': 7,
-      'InviteMessageTemplate': {
-        'SMSMessage': ' ユーザー名は {username}、仮パスワードは {####} です。',
-        'EmailMessage': ' ユーザー名は {username}、仮パスワードは {####} です。',
-        'EmailSubject': ' 仮パスワード'
-      }
+      # 'InviteMessageTemplate': {
+      #     'SMSMessage': 'string',
+      #     'EmailMessage': 'string',
+      #     'EmailSubject': 'string'
+      # }
     },
     # Schema=[
     #   {
