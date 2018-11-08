@@ -4,7 +4,7 @@ import boto3
 def main():
   client = boto3.client('cognito-idp')
 
-  poot_name = 'test-hoge'
+  poot_name = '[Cognitoのユーザープール名]'
 
   # ユーザープールの作成
   user_pool = _create_user_pool(client, poot_name)
@@ -15,7 +15,7 @@ def main():
   # TOTPを利用したMFAを有効にする
   _set_user_pool_mfa_config(client, user_pool)
 
-  _create_user(client, user_pool, 'hoge', 'hogeHoge7!')
+  _create_user(client, user_pool, '[ユーザー名]', '[パスワード]')
 
 
 def _create_user_pool(client, pool_name):
